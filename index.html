@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Validator</title>
+    <title>Formularz rejestracyjny</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,41 +28,57 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default" style="margin-top: 40px">
-                <div class="panel-heading">Panel heading without title</div>
+                <div class="panel-heading">Formularz rejestracyjny</div>
                 <div class="panel-body">
                     <form action="#form" role="form">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">liczba</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
-                                   data-min="2" data-max="3" data-type="number">
+                            <label>Imię *</label>
+                            <input type="text" class="form-control" placeholder="np. Jan"
+                                   data-minlength="2" data-maxlength="100" data-required>
                         </div>
                         <div class="form-group">
-                            <label for="bb">req</label>
-                            <input type="password" class="form-control" id="bb"
-                                   placeholder="Password" data-required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="aa">URL</label>
-                            <input type="text" class="form-control" id="aa"
-                                   data-required data-type="url">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="aa">email</label>
-                            <input type="text" class="form-control" id="aa"
-                                   placeholder="Password" data-required data-type="email">
+                            <label>Nazwisko *</label>
+                            <input type="text" class="form-control" placeholder="np. Kowalski"
+                                   data-minlength="2" data-maxlength="100" data-required>
                         </div>
                         <div class="form-group">
-                            <label for="hjhjj">Password</label>
-                            <input type="password" class="form-control" id="hjhjj" placeholder="Password" data-minlength="4" data-maxlength="6" data-required>
+                            <label>Numer telefonu</label>
+                            <input type="text" class="form-control" placeholder="np. 777-777-777"
+                                    data-pattern="\d{3}[\-]\d{3}[\-]\d{3}">
                         </div>
-
                         <div class="form-group">
-                            <label for="hjhjj">pattern</label>
-                            <input type="text" class="form-control" id="hjhjj" placeholder="pattern" data-pattern="^\d+$">
+                            <label>E-mail *</label>
+                            <input type="text" class="form-control" placeholder="np. jan.kowalski@gmail.com"
+                                    data-type="email">
                         </div>
-
+                        <div class="form-group">
+                            <label>Hasło *</label>
+                            <input type="password" class="form-control" data-required data-equal="haslo">
+                        </div>
+                        <div class="form-group">
+                            <label>Powtórz hasło *</label>
+                            <input type="password" class="form-control" data-required id="haslo">
+                        </div>
+                        <div class="form-group">
+                            <label>Marka</label>
+                            <input type="text" class="form-control" placeholder="np. Honda"
+                                   data-minlength="2" data-maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Model</label>
+                            <input type="text" class="form-control" placeholder="np. CB750"
+                                   data-minlength="2" data-maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Rok produkcji</label>
+                            <input type="text" class="form-control" placeholder="np. 1959"
+                                   data-min="1900" data-max="2015" data-type="number">
+                        </div>
+                        <div class="form-group">
+                            <label>Pojemność</label>
+                            <input type="text" class="form-control" placeholder="np. 999"
+                                   data-min="49" data-max="3000" data-type="number">
+                        </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" data-required> Wyrażam zgodę na regulamin. <a href="#">Czytaj regulamin</a>

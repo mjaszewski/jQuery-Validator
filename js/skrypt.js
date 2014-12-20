@@ -13,6 +13,10 @@ $(document).ready(function(){
         success : {
             element: '.panel',
             successClass: 'panel-success'
+        },
+        error : {
+            element: '.panel',
+            errorClass: 'panel-danger'
         }
     }).addClass('fdf');
 })

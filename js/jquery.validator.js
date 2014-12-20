@@ -14,16 +14,16 @@
         defaults = {
             messages: {
                 required: "To pole jest wymagane",
-                checked: "Wymaga zaznaczenia",
-                email: "Please enter a valid email address.",
-                url: "Please enter a valid URL.",
-                number: "Please enter a valid number.",
-                equalTo: "Please enter the same value again.",
-                maxlength: "Please enter no more than {0} characters.",
-                minlength: "Please enter at least {0} characters.",
-                max: "Please enter a value less than or equal to {0}.",
-                min: "Please enter a value greater than or equal to {0}.",
-                pattern: "Popraw dane"
+                checked: "Wymaga zaznaczenia.",
+                email: "Proszę podać poprawny adres e-mail.",
+                url: "Proszę podać podać poprawny adres www.",
+                number: "Proszę podać wartość liczbową.",
+                maxlength: "Proszę wpisać maksymalnie {0} znaków.",
+                minlength: "Proszę wpisać co najmniej {0} znaków.",
+                max: "Proszę podać wartość mniejszą lub równą {0}.",
+                min: "Proszę podać wartość większą lub równą {0}.",
+                pattern: "Popraw dane.",
+                equal: "Wartośći pól muszą być takie same."
             },
             errorContainer: 'error',
             errorWrap: 'span',
@@ -33,11 +33,12 @@
             success : {
                 element: 'form',
                 successClass: 'success'
-            }
+            },
 
-            //equalTo : {
-            //    id: ''
-            //}
+            error : {
+                element: 'form',
+                errorClass: 'error'
+            }
         };
 
         options = $.extend(true, {}, defaults, options);
@@ -89,7 +90,7 @@
                 $('[data-type=number]').each(function () {
                     var self = $(this);
                     var msg = options.messages.number;
-                    if (!/^\d+$/.test( self.val()) && self.val() != '' && self.next('[data-error]').length == 0) {
+                    if (!/^[0-9]*[.,]?[0-9]+$/.test( self.val()) && self.val() != '' && self.next('[data-error]').length == 0) {
                         isValid = false
                         error(self, msg);
                     }
@@ -99,10 +100,10 @@
                 $('[data-min]').each(function () {
                     var self = $(this);
                     var min = self.attr('data-min');
-
+                    var num = parseFloat(self.val());
                     var msg = options.messages.min;
-                    if (self.val() < min && self.val() != '' && self.next('[data-error]').length == 0) {
-                        isValid = false
+                    if (num < min && self.val() != '' && self.next('[data-error]').length == 0) {
+                        isValid = false;
                         error(self, msg, min);
                     }
                 });
@@ -110,9 +111,10 @@
                 $('[data-max]').each(function () {
                     var self = $(this);
                     var max = self.attr('data-max');
+                    var num = parseFloat(self.val());
                     var msg = options.messages.max;
-                    if (self.val() > max && self.val() != '' && self.next('[data-error]').length == 0) {
-                        isValid = false
+                    if (num > max && self.val() != '' && self.next('[data-error]').length == 0) {
+                        isValid = false;
                         error(self, msg, max);
                     }
                 });
@@ -145,6 +147,20 @@
                     if (!pattern.test(self.val()) && self.val() != '' && self.next('[data-error]').length == 0) {
                         isValid = false
                         error(self, msg  );
+                    }
+                });
+
+                $('[data-equal]').each(function () {
+                    var self = $(this);
+                    var msg = options.messages.equal;
+                    var isEqual
+                    var equalTo = $('#'+self.attr('data-equal'))
+                    if(self.val() == equalTo.val()){
+                        isEqual = true;
+                    }
+                    if (!isEqual && self.val() != '' && self.next('[data-error]').length == 0) {
+                        isValid = false
+                        error(equalTo, msg);
                     }
                 });
 
@@ -187,9 +203,9 @@
                 e.preventDefault();
                 if (valid()) {
                     $(options.success.element).addClass(options.success.successClass)
+                    $(options.error.element).removeClass(options.error.errorClass)
                 } else {
-
-
+                    $(options.error.element).addClass(options.error.errorClass)
                 }
             })
         });
