@@ -22,7 +22,8 @@
                 maxlength: "Please enter no more than {0} characters.",
                 minlength: "Please enter at least {0} characters.",
                 max: "Please enter a value less than or equal to {0}.",
-                min: "Please enter a value greater than or equal to {0}."
+                min: "Please enter a value greater than or equal to {0}.",
+                pattern: "Popraw dane"
             },
             errorContainer: 'error',
             errorWrap: 'span',
@@ -34,9 +35,9 @@
                 successClass: 'success'
             }
 
-            equalTo : {
-                id: ''
-            }
+            //equalTo : {
+            //    id: ''
+            //}
         };
 
         options = $.extend(true, {}, defaults, options);
@@ -137,6 +138,16 @@
                     }
                 });
 
+                $('[data-pattern]').each(function () {
+                    var self = $(this);
+                    var msg = options.messages.pattern;
+                    var pattern = new RegExp(self.attr('data-pattern'));
+                    if (!pattern.test(self.val()) && self.val() != '' && self.next('[data-error]').length == 0) {
+                        isValid = false
+                        error(self, msg  );
+                    }
+                });
+
                 $('[data-required]').each(function () {
                     var self = $(this);
                     var msg = options.messages.required;
@@ -151,8 +162,6 @@
                         }
                     }
                 });
-
-                $('[data-equalTo]')
 
                 if (form.find('[data-error]').length > 0) {
                     return false
